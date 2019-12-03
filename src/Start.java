@@ -13,8 +13,10 @@ public class Start {
 		
 		
 		
-		  Book b = new Book("book"); b.setPage(13); SaverAndLoader saver = new SaverAndLoader();
+		  Book b = new Book("book"); b.setPage(13);
+		  SaverAndLoader saver = new SaverAndLoader();
 		  saver.saveBook(b);
-		 
+		  int a = saver.loadBook(b).getPage();
+		  System.out.println(a);
 	}
 }

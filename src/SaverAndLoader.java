@@ -22,6 +22,7 @@ public class SaverAndLoader {
 				return false;
 			}
 		}
+		
 		return true;
 	}
 
@@ -32,6 +33,8 @@ public class SaverAndLoader {
 				out = new FileOutputStream(file);
 				objOut = new ObjectOutputStream(out);
 				objOut.writeObject(book);
+				out.close();
+				objOut.close();
 				return true;
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -39,6 +42,62 @@ public class SaverAndLoader {
 			}
 		}
 		return false;
+	}
+
+	public boolean saveMovie(Movie movie) {
+
+		if (createFile(movie)) {
+			try {
+				out = new FileOutputStream(file);
+				objOut = new ObjectOutputStream(out);
+				objOut.writeObject(movie);
+				out.close();
+				objOut.close();
+				return true;
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("didnt save try again");
+			}
+		}
+		return false;
+	}
+
+	public Book loadBook(Book book) {
+		Book b = null;
+		if(createFile(book)) {
+			try {				
+			in = new FileInputStream(file);
+			objIn = new ObjectInputStream(in);
+			b = (Book) objIn.readObject();
+			in.close();
+			objIn.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("cant load book obj");
+			}
+		}
+		return b;
+		
+		
+	}
+
+	public Movie loadMovie(Movie movie) {
+		Movie m = null;
+		if(createFile(movie)) {
+			try {				
+			in = new FileInputStream(file);
+			objIn = new ObjectInputStream(in);
+			m = (Movie) objIn.readObject();
+			in.close();
+			objIn.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("cant load movie obj");
+			}
+		}
+		return m;
+		
+		
 	}
 
 }
