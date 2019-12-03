@@ -10,7 +10,7 @@ public class Book implements Serializable, Savable {
 	}
 
 	public Book(String name) {
-		if (!name.isBlank() && name.isEmpty()) {
+		if (!name.isBlank() && !name.isEmpty()) {
 			this.name = name;
 			fileName = name + (int) (Math.random() * 100); // name and random num for saving object as file
 		} else {

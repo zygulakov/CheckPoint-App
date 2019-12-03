@@ -9,10 +9,12 @@ public class Start {
 
 	public static void main(String[] args) throws FileNotFoundException {
 
-		Book b = new Book("book");
-		b.setPage(13);
-		Saver saver = new Saver();
-		saver.saveBook(b);
-
+		
+		
+		
+		
+		  Book b = new Book("book"); b.setPage(13); SaverAndLoader saver = new SaverAndLoader();
+		  saver.saveBook(b);
+		 
 	}
 }
