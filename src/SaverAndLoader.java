@@ -2,7 +2,18 @@ import java.io.*;
 
 /*this class needed to save objects to disk*/
 public class SaverAndLoader {
+	
 	private static final File savePath = new File("allsaves");
+	private static SaverAndLoader instance ;
+	private SaverAndLoader() {
+		
+	}
+	public static SaverAndLoader getInstance() {
+		if(instance == null) {
+			instance = new SaverAndLoader();
+		}
+		return instance;
+	}
 	File file;
 	FileOutputStream out;
 	ObjectOutputStream objOut;
@@ -22,7 +33,7 @@ public class SaverAndLoader {
 				return false;
 			}
 		}
-		
+
 		return true;
 	}
 
@@ -64,40 +75,38 @@ public class SaverAndLoader {
 
 	public Book loadBook(Book book) {
 		Book b = null;
-		if(createFile(book)) {
-			try {				
-			in = new FileInputStream(file);
-			objIn = new ObjectInputStream(in);
-			b = (Book) objIn.readObject();
-			in.close();
-			objIn.close();
-			}catch (Exception e) {
+		if (createFile(book)) {
+			try {
+				in = new FileInputStream(file);
+				objIn = new ObjectInputStream(in);
+				b = (Book) objIn.readObject();
+				in.close();
+				objIn.close();
+			} catch (Exception e) {
 				e.printStackTrace();
 				System.out.println("cant load book obj");
 			}
 		}
 		return b;
-		
-		
+
 	}
 
 	public Movie loadMovie(Movie movie) {
 		Movie m = null;
-		if(createFile(movie)) {
-			try {				
-			in = new FileInputStream(file);
-			objIn = new ObjectInputStream(in);
-			m = (Movie) objIn.readObject();
-			in.close();
-			objIn.close();
-			}catch (Exception e) {
+		if (createFile(movie)) {
+			try {
+				in = new FileInputStream(file);
+				objIn = new ObjectInputStream(in);
+				m = (Movie) objIn.readObject();
+				in.close();
+				objIn.close();
+			} catch (Exception e) {
 				e.printStackTrace();
 				System.out.println("cant load movie obj");
 			}
 		}
 		return m;
-		
-		
+
 	}
 
 }

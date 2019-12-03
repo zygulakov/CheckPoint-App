@@ -35,4 +35,5 @@ public class Book implements Serializable, Savable {
 	public String getName() {
 		return name;
 	}
+	
 }
