@@ -1,6 +1,6 @@
 import java.io.Serializable;
 
-public class Movie implements Serializable{
+public class Movie implements Serializable,Savable{
 	private final String fileName ; 
 	private int season ;
 	private int episode;
@@ -11,7 +11,7 @@ public class Movie implements Serializable{
 		fileName = name + (int)(Math.random() * 100); // name and random num for saving object as file
 	}
 	
-	private String getFileName() {
+	public String getFileName() {
 		return fileName;
 	}
 	public int getSeason() {
