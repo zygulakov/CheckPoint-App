@@ -1,12 +1,18 @@
 import java.io.*;
 
 public class Reader extends Thread {
-	private boolean breaker = true; 		// if something goes wrong to stop reader
 	private boolean canRead ;
 	private String str; 					// string from reader (r)
-	BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
-	
-	
+	private BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
+	private static Reader instance;
+	private Reader () {}
+	public static Reader getInstance() {  	// i wanted to make this class singleton 
+											//because one instance is enough and wont get messy
+		if(instance ==null) {
+			instance = new Reader();
+		}
+		return instance;
+	}
 	// to check if string is ready to read
 	public boolean canRead() {
 		return canRead;
@@ -20,7 +26,7 @@ public class Reader extends Thread {
 	//to read from console all the time    sets canRead to true u can have the string 
 	@Override
 	public void run()  {
-		while(breaker) {
+		while(!interrupted()) {
 			try {
 				
 				str = r.readLine();
