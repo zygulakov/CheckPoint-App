@@ -14,7 +14,14 @@ public class Movie extends BookMovie {
 	}
 
 	// throws IllegalArgumentException if smaller than 0
-	public void set(int season, int episode, int minute) {
+	@Override
+	public void set(int ...i) {
+		if(i.length>3) {
+			throw new IllegalArgumentException("only three integer for this class allowed");
+		}
+		int season = i[0];
+		int episode = i[1];
+		int minute = i[2];
 		if (season > 0 && episode > 0 && minute >= 0) {
 			this.season = season;
 			this.episode = episode;

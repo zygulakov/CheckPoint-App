@@ -9,6 +9,8 @@ public abstract class BookMovie implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private final String fileName;
 	public String name;
+	
+	public abstract void set(int ... i);
 
 	public BookMovie(String name) {
 		if (!name.isBlank() && !name.isEmpty()) {

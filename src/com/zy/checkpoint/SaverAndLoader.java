@@ -72,24 +72,27 @@ public class SaverAndLoader {
 		List<BookMovie> list = new ArrayList<>();
 		BookMovie b;
 		File f;
-		for (String str : l) {
-			f = new File(savePath.toString() + File.separatorChar + str);
-			try {
-				in = new FileInputStream(f);
-				objIn = new ObjectInputStream(in);
-				b = (BookMovie) objIn.readObject();
-				list.add(b);
-			} catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("cant load book obj");
-			}
+		if (l.length > 0) {
 
-		}
-		try {
-			in.close();
-			objIn.close();
-		} catch (IOException e) {
-			e.printStackTrace();
+			for (String str : l) {
+				f = new File(savePath.toString() + File.separatorChar + str);
+				try {
+					in = new FileInputStream(f);
+					objIn = new ObjectInputStream(in);
+					b = (BookMovie) objIn.readObject();
+					list.add(b);
+				} catch (Exception e) {
+					e.printStackTrace();
+					System.out.println("cant load book obj");
+				}
+
+			}
+			try {
+				in.close();
+				objIn.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		return list;
 
