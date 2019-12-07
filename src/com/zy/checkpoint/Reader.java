@@ -1,53 +1,112 @@
 package com.zy.checkpoint;
+
 import java.io.*;
+import java.util.List;
 
-public class Reader extends Thread {
-	private boolean canRead;
-	private String str; // string from reader (r)
-	private BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
-	private static Reader instance;
+public class Reader {
+	BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+	List<String> listOfCommands = Command.listOfCommands;
+	Command comm = new Command();
+	String str;
 
-	private Reader() {
-	}
+	public void listen() throws Exception {
 
-	public static Reader getInstance() { // i wanted to make this class singleton
-											// because one instance is enough and wont get messy
-		if (instance == null) {
-			instance = new Reader();
-		}
-		return instance;
-	}
+		while (!(str = reader.readLine()).equals("exit")) {
+			if (listOfCommands.contains(str)) {
+				if (str.equalsIgnoreCase("add")) {
+					System.out.println("add book or movie ? 1-BOOK  2-MOVIE");
+					// while ((str = reader.readLine()).equals("1") || (str =
+					// reader.readLine()).equals("2")) {
+					if (str.equals("1")) {
+						System.out.println("whats name of the book?");
+						str = reader.readLine();
+						Book book = new Book(str);
+						System.out.println("last page you red?");
+						str = reader.readLine();
+						book.set(Integer.parseInt(str));
+						comm.add(book);
+						System.out.println("Done");
+					} else {
+						int[] sem = new int[3];
+						System.out.println("whats name of the Movie?");
+						str = reader.readLine();
+						Movie movie = new Movie(str);
+						System.out.println("which season?");
+						str = reader.readLine();
+						sem[0] = Integer.parseInt(str);
+						System.out.println("which episode?");
+						str = reader.readLine();
+						sem[1] = Integer.parseInt(str);
+						System.out.println("which minute?");
+						str = reader.readLine();
+						sem[2] = Integer.parseInt(str);
+						movie.set(sem);
+						comm.add(movie);
+						System.out.println("Done");
+					}
+					// }
 
-	// to check if string is ready to read
-	public boolean canRead() {
-		return canRead;
-	}
+				} else if (str.equalsIgnoreCase("update")) {
+					comm.listItem();
+					System.out.println("which one you wanna update pls enter number ?");
+					str = reader.readLine();
+					try {
+						int num = Integer.parseInt(str);
+						if (num <= comm.getSizeOfItems()) {
+							if (comm.getObj(num) instanceof Book) {
+								System.out.println(" change to which page ?");
+								int num2 = Integer.parseInt(reader.readLine());
+								comm.update(num, num2);
+								System.out.println("Updated!");
+							} else {
+								int[] sem = new int[4];
+								sem[0] = num;
+								System.out.println(" change to what season ?");
+								str = reader.readLine();
+								sem[1] = Integer.parseInt(str);
+								System.out.println("which episode?");
+								str = reader.readLine();
+								sem[2] = Integer.parseInt(str);
+								System.out.println("which minute?");
+								str = reader.readLine();
+								sem[3] = Integer.parseInt(str);
+								comm.update(sem);
+								System.out.println("Updated!");
+							}
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+						System.out.println("NUMBER PLS");
 
-	// getter sets canRead to false to prevent from reading same string more than
-	// once
-	public String getString() {
-		canRead = false;
-		return str;
-	}
+					}
+				} else if (str.equalsIgnoreCase("remove")) {
+					comm.listItem();
+					System.out.println("which one you wanna remove pls enter number ?");
+					str = reader.readLine();
+					try {
+						int num = Integer.parseInt(str);
+						if (num <= comm.getSizeOfItems()) {
+							System.out
+									.println(comm.getObj(num).toString() + "   <-- will be REMOVED are you sure? Y/N");
+							str = reader.readLine();
+							if (str.equalsIgnoreCase("Y")) {
+								comm.remove(num);
+								System.out.println("removed");
+							} else if (str.equalsIgnoreCase("N")) {
+								System.out.println("did not removed anything!");
+							}
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+						System.out.println("NUMBER PLS");
 
-	// to read from console all the time sets canRead to true u can have the string
-	@Override
-	public void run() {
-		while (!interrupted()) {
-			try {
+					}
+				} else if (str.equalsIgnoreCase("list")) {
+					System.out.println("HERE IS WHAT WE HAVE!");
+					comm.listItem();
+				}
 
-				str = r.readLine();
-				if (!str.isEmpty() && !str.isBlank()) {
-					canRead = true;
-				} else
-					System.out.println("for help type <help> ");
-
-			} catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("restart app pls(Reader issue)");
 			}
-
-		}
+		}comm.done();
 	}
-
 }

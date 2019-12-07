@@ -22,7 +22,7 @@ public class Movie extends BookMovie {
 		int season = i[0];
 		int episode = i[1];
 		int minute = i[2];
-		if (season > 0 && episode > 0 && minute >= 0) {
+		if (season >= 0 && episode >= 0 && minute >= 0) {
 			this.season = season;
 			this.episode = episode;
 			this.minute = minute;
@@ -34,7 +34,7 @@ public class Movie extends BookMovie {
 	@Override
 	public String toString() {
 		
-		return "(MOVIE)  " + name + "  " + season + "  "+episode+"  "+minute;
+		return "(MOVIE)  " + name + " SE: " + season + " EP: "+episode+" MIN: "+minute;
 	}
 
 }

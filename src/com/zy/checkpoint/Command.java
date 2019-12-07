@@ -4,11 +4,18 @@ import java.io.File;
 import java.util.*;
 
 public class Command {
-	private static List<String> listOfCommands = Arrays.asList("add", "remove", "update", "list", "help");
+	public static List<String> listOfCommands = Arrays.asList("add", "remove", "update", "list", "help");
 	private HashMap<Integer, BookMovie> items = new HashMap<>();
 	private SaverAndLoader s = SaverAndLoader.getInstance();
 	private int num;
-
+	public BookMovie getObj(int num) {
+		refresh();
+		return items.get(num);
+	}
+	public int getSizeOfItems() {
+		return items.size();
+	}
+	//needed to add numbers to map and also update data after an operation made;
 	private void refresh() {
 		int refNum = 0;
 		HashMap<Integer, BookMovie> itemsR = new HashMap<>();
@@ -41,7 +48,7 @@ public class Command {
 	public Command() {
 		init();
 	}
-
+	//adds data to item map
 	public void add(BookMovie... bm) {
 		for (BookMovie bookMovie : bm) {
 			num++;
@@ -49,14 +56,14 @@ public class Command {
 		}
 		refresh();
 	}
-
+	//removes data from items map and refresh it
 	public void remove(int... i) {
 		for (int n : i) {
 			items.remove(n);
 		}
 		refresh();
 	}
-
+	//updates data 
 	public void update(int... num) {
 		refresh();
 		if (num.length == 2) {
@@ -76,7 +83,7 @@ public class Command {
 		}
 
 	}
-
+	//lists all data
 	public void listItem() {
 		if (!items.isEmpty()) {
 
@@ -89,6 +96,7 @@ public class Command {
 			System.out.println("list is empty");
 	}
 
+	// removes all files from the file and then saves all new data
 	public void done() {
 		final File savePath = new File("allsaves");
 		for (File file : savePath.listFiles()) {

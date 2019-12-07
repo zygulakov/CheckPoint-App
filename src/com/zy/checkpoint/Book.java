@@ -18,7 +18,7 @@ public class Book extends BookMovie {
 			throw new IllegalArgumentException("only one integer for this class allowed");
 		}
 		int page = i[0];
-		if (page > 0) {
+		if (page >=0) {
 			this.page = page;
 		} else
 			throw new IllegalArgumentException("book whithout pages?");
@@ -27,6 +27,6 @@ public class Book extends BookMovie {
 
 	@Override
 	public String toString() {
-		return "(BOOK)  " + name +"  "+ page;
+		return "(BOOK)  " + name +" page: "+ page;
 	}
 }
