@@ -11,7 +11,9 @@ public class SaverAndLoader {
 	private static SaverAndLoader instance;
 
 	private SaverAndLoader() {
-
+		if(!savePath.exists()) {
+			savePath.mkdir();
+		}
 	}
 
 	public static SaverAndLoader getInstance() {
