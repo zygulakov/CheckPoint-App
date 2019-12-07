@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.*;
 
 public class Command {
-	public static List<String> listOfCommands = Arrays.asList("add", "remove", "update", "list", "help");
+	public static List<String> listOfCommands = Arrays.asList("add", "remove", "update", "list", "help","save");
 	private HashMap<Integer, BookMovie> items = new HashMap<>();
 	private SaverAndLoader s = SaverAndLoader.getInstance();
 	private int num;
@@ -90,8 +90,11 @@ public class Command {
 			for (Map.Entry<Integer, BookMovie> entry : items.entrySet()) {
 				int number = entry.getKey();
 				BookMovie bm = entry.getValue();
-				System.out.println(number + bm.toString());
+				System.out.println(number + bm.toString());	
 			}
+			System.out.println("");
+			System.out.println("to SAVE chages type  <save>");
+			
 		} else
 			System.out.println("list is empty");
 	}

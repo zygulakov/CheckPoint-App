@@ -8,6 +8,7 @@ public class Reader {
 	List<String> listOfCommands = Command.listOfCommands;
 	Command comm = new Command();
 	String str;
+	boolean saved = false;
 
 	public void listen() throws Exception {
 
@@ -17,6 +18,7 @@ public class Reader {
 					System.out.println("add book or movie ? 1-BOOK  2-MOVIE");
 					// while ((str = reader.readLine()).equals("1") || (str =
 					// reader.readLine()).equals("2")) {
+						str = reader.readLine();
 					if (str.equals("1")) {
 						System.out.println("whats name of the book?");
 						str = reader.readLine();
@@ -104,9 +106,41 @@ public class Reader {
 				} else if (str.equalsIgnoreCase("list")) {
 					System.out.println("HERE IS WHAT WE HAVE!");
 					comm.listItem();
+				} else if (str.equalsIgnoreCase("save")) {
+					comm.done();
+					saved = true;
+					System.out.println("everything saved !");
+				}else if(str.equalsIgnoreCase("HELP")) {
+					System.out.println("            *****Help*****");
+					System.out.println("to list all your saved items pls type <list>");
+					System.out.println("to add item to list pls type <add>");
+					System.out.println("to remove item from list pls type <remove>");
+					System.out.println("to update item in list pls type <update>");
+					System.out.println("to save changes  pls type <save>");
+					System.out.println("for help pls type <help>");
+					System.out.println("to exit  pls type <exit>");
+					System.out.println("Thank You!");
 				}
-
 			}
-		}comm.done();
+		}
+		if (!saved) {
+
+			System.out.println("did you save changes by typing <save> ?   Y/N");
+			str = reader.readLine();
+			if (str.equalsIgnoreCase("Y")) {
+				System.out.println("ok bye");
+			} else if (str.equalsIgnoreCase("N")) {
+				System.out.println("save changes ?  Y/N");
+				str = reader.readLine();
+				if (str.equalsIgnoreCase("Y")) {
+					comm.done();
+					System.out.println("ok saved bye");
+				} else if (str.equalsIgnoreCase("N")) {
+					System.out.println("changes didnt saved bye");
+				}
+			}
+		}
+
 	}
+
 }
